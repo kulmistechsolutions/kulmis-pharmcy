@@ -1,0 +1,61 @@
+
+        return medicines;
+      };
+
+      const buildStaffSheet = async (salesData = [], labRecords = []) => {
+        const sheet = workbook.addWorksheet('Staff Overview', {
+          views: [{ state: 'frozen', ySplit: 1 }],
+        });
+
+        sheet.columns = [
+          { header: 'Name', key: 'name', width: 28 },
+          { header: 'Role', key: 'role', width: 18 },
+          { header: 'Email', key: 'email', width: 28 },
+          { header: 'Phone', key: 'phone', width: 18 },
+          { header: 'Active', key: 'active', width: 10 },
+          { header: 'Total Sales', key: 'salesAmount', width: 16, style: { numFmt: '"$"#,##0.00' } },
+          { header: 'Lab Revenue', key: 'labAmount', width: 16, style: { numFmt: '"$"#,##0.00' } },
+          { header: 'Profit', key: 'profit', width: 14, style: { numFmt: '"$"#,##0.00' } },
+          { header: 'Transactions', key: 'transactions', width: 14 },
+          { header: 'Created At', key: 'created_at', width: 20, style: { numFmt: 'mm/dd/yyyy hh:mm' } },
+        };
+
+        styleHeaderRow(sheet.getRow(1), 'FF6366F1');
+
+        const isGlobal = req.isSuperAdminRequest;
+        const ownerId = req.accountId || req.user._id;
+        const staffQuery = isGlobal
+          ? { role: { $in: ['pharmacy_owner', 'technician', 'staff'] } }
+          : {
+              $or: [
+                { _id: ownerId },
+                { created_by: ownerId },
+              ],
+            };
+
+        const staffMembers = await User.find(staffQuery)
+          .select('pharmacyName email phone role isActive createdAt permissions')
+          .sort({ createdAt: -1 })
+          .lean();
+
+        const performance = buildStaffSummary(salesData, labRecords);
+        const performanceMap = new Map(performance.map((entry) => [entry.id, entry]));
+
+        staffMembers.forEach((member) => {
+          const metrics = performanceMap.get(member._id.toString()) || {
+            salesAmount: 0,
+            labAmount: 0,
+            transactions: 0,
+            profit: 0,
+          };
+          sheet.addRow({
+            name: member.pharmacyName || member.email,
+            role: member.role,
+            email: member.email,
+            phone: member.phone,
+            active: member.isActive ? 'Yes' : 'No',
+            salesAmount: metrics.salesAmount,
+            labAmount: metrics.labAmount,
+            profit: metrics.profit,
+            transactions: metrics.transactions,
+            created_at: member.createdAt ? new Date(member.createdAt) : null,

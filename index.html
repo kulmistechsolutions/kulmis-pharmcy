@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>Kulmis Pharmacy</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      console.log('✅ HTML script tag executed')
+      console.log('Root element:', document.getElementById('root'))
+      
+      // Test if module scripts work
+      window.addEventListener('error', function(e) {
+        console.error('Global error:', e.error)
+        // Only show error if React hasn't loaded yet
+        const root = document.getElementById('root')
+        if (root && root.children.length === 0) {
+          root.innerHTML = `
+            <div style="padding: 20px; font-family: sans-serif; max-width: 800px; margin: 50px auto;">
+              <h1 style="color: red;">JavaScript Error Detected</h1>
+              <p><strong>Error:</strong> ${e.message}</p>
+              <p><strong>File:</strong> ${e.filename}</p>
+              <p><strong>Line:</strong> ${e.lineno}</p>
+              <pre style="background: #f5f5f5; padding: 15px; border-radius: 8px; overflow: auto;">
+${e.error ? e.error.stack : 'No stack trace'}
+              </pre>
+            </div>
+          `
+        }
+      })
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fallback check after 3 seconds (only if root is still empty)
+      setTimeout(() => {
+        const root = document.getElementById('root')
+        if (root && root.children.length === 0) {
+          console.error('❌ Script did not execute after 3 seconds')
+          root.innerHTML = `
+            <div style="padding: 20px; font-family: sans-serif; max-width: 800px; margin: 50px auto;">
+              <h1 style="color: red;">⚠️ JavaScript Not Loading</h1>
+              <p>The script <code>main.tsx</code> did not execute.</p>
+              <p><strong>Possible causes:</strong></p>
+              <ul>
+                <li>Dev server not running</li>
+                <li>Module import error</li>
+                <li>Build/compilation error</li>
+                <li>Network/CORS issue</li>
+              </ul>
+              <p><strong>Check:</strong></p>
+              <ol>
+                <li>Open browser console (F12)</li>
+                <li>Check Network tab for failed requests</li>
+                <li>Verify dev server is running: <code>npm run dev</code></li>
+                <li>Check terminal for Vite errors</li>
+              </ol>
+              <button onclick="window.location.reload()" style="padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px;">
+                Reload Page
+              </button>
+            </div>
+          `
+        }
+      }, 3000)
+    </script>
+  </body>
+</html>

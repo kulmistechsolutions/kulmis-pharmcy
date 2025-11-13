@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <h1>Direct Test</h1>
+    <div id="test"></div>
+    <script>
+        console.log('Inline script works!')
+        document.getElementById('test').innerHTML = '<p style="color: green;">✅ JavaScript is working!</p>'
+    </script>
+    <script type="module">
+        console.log('Module script works!')
+        import('/src/main.tsx').then(() => {
+            console.log('main.tsx imported')
+        }).catch(err => {
+            console.error('Import failed:', err)
+            document.getElementById('test').innerHTML += '<p style="color: red;">❌ Import failed: ' + err.message + '</p>'
+        })
+    </script>
+</body>
+</html>
+
