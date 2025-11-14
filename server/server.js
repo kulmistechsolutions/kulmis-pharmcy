@@ -134,6 +134,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
+// Root handler for sanity check
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Kulmis Pharmacy API is running',
+    documentation: 'All endpoints are prefixed with /api',
+    health: '/api/health',
+  });
+});
+
 // Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
