@@ -1,0 +1,54 @@
+[1mdiff --git a/server/middleware/permissions.js b/server/middleware/permissions.js[m
+[1mindex 0945dff..3ad8bc1 100644[m
+[1m--- a/server/middleware/permissions.js[m
+[1m+++ b/server/middleware/permissions.js[m
+[36m@@ -92,3 +92,4 @@[m [mexport const hasAllPermissions = (...permissions) => {[m
+ [m
+ [m
+ [m
+[41m+[m
+[1mdiff --git a/server/models/Permission.js b/server/models/Permission.js[m
+[1mindex 95d68e5..fd05c66 100644[m
+[1m--- a/server/models/Permission.js[m
+[1m+++ b/server/models/Permission.js[m
+[36m@@ -105,3 +105,4 @@[m [mexport const PERMISSION_GROUPS = {[m
+ [m
+ [m
+ [m
+[41m+[m
+[1mdiff --git a/server/scripts/addSuperAdmin.js b/server/scripts/addSuperAdmin.js[m
+[1mindex 9d9b9a1..808ac5b 100644[m
+[1m--- a/server/scripts/addSuperAdmin.js[m
+[1m+++ b/server/scripts/addSuperAdmin.js[m
+[36m@@ -107,3 +107,4 @@[m [maddSuperAdmin();[m
+ [m
+ [m
+ [m
+[41m+[m
+[1mdiff --git a/server/scripts/addSuperAdminDirect.js b/server/scripts/addSuperAdminDirect.js[m
+[1mindex f254f1e..4014d88 100644[m
+[1m--- a/server/scripts/addSuperAdminDirect.js[m
+[1m+++ b/server/scripts/addSuperAdminDirect.js[m
+[36m@@ -101,3 +101,4 @@[m [maddSuperAdmin();[m
+ [m
+ [m
+ [m
+[41m+[m
+[1mdiff --git a/server/scripts/createSuperAdmin.js b/server/scripts/createSuperAdmin.js[m
+[1mindex ed16d7a..7710ec3 100644[m
+[1m--- a/server/scripts/createSuperAdmin.js[m
+[1m+++ b/server/scripts/createSuperAdmin.js[m
+[36m@@ -77,3 +77,4 @@[m [mcreateSuperAdmin();[m
+ [m
+ [m
+ [m
+[41m+[m
+[1mdiff --git a/server/scripts/makeUserSuperAdmin.js b/server/scripts/makeUserSuperAdmin.js[m
+[1mindex 10d4022..4e984b9 100644[m
+[1m--- a/server/scripts/makeUserSuperAdmin.js[m
+[1m+++ b/server/scripts/makeUserSuperAdmin.js[m
+[36m@@ -109,3 +109,4 @@[m [mmakeUserSuperAdmin();[m
+ [m
+ [m
+ [m
+[41m+[m
