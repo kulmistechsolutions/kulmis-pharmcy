@@ -7,7 +7,6 @@ const pharmacySettingSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
       unique: true,
-      index: true,
     },
     name: {
       type: String,
@@ -56,8 +55,6 @@ const pharmacySettingSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-pharmacySettingSchema.index({ pharmacy: 1 });
 
 const PharmacySetting =
   mongoose.models.PharmacySetting || mongoose.model('PharmacySetting', pharmacySettingSchema);
